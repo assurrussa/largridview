@@ -9,9 +9,14 @@ A simple package for the view of the grid on Vue. It is easily customizable and 
 ## Usage
 
 ```
-  import Grid from 'largridview';
+  import Vue from 'vue'
+  
+  import * as LarGridView from 'largridview'
+  Vue.use(LarGridView)
 
-  <grid :url="'api/all'"
+...
+
+  <LarGridView :url="'api/all'"
         :fields="[{width: '10%', name: 'id', label: '', isSort: true}, {width: null, name: 'action', label: 'Действия', isAction: true}]"
         @response="onResponse"
         :isBusy="loadingSendingStatus"
@@ -19,5 +24,5 @@ A simple package for the view of the grid on Vue. It is easily customizable and 
         <tr v-for="(item, index) in items" :key="index">
             ...
         </tr>
-  </grid>
+  </LarGridView>
 ```
