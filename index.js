@@ -1,1 +1,3 @@
-require('./app/Grid')
+import Grid from './app/Grid';
+
+export default Grid;
