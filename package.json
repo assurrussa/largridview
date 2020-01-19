@@ -1,7 +1,7 @@
 {
   "name": "largridview",
-  "version": "1.0.5",
-  "description": "A simple package for the view of the grid on Vue. It is easily customizable and easy to work. The main task of the grid package takes over. You do the rest.",
+  "version": "1.0.6",
+  "description": "A simple package to view the grid on Vue with the Laravel web framework. Easy to configure and easy to operate. The main task of the grid package takes on. You do the rest.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

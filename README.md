@@ -1,6 +1,8 @@
 # Package LarGridView
 
-A simple package for the view of the grid on Vue. It is easily customizable and easy to work. The main task of the grid package takes over. You do the rest.
+### LarGridView package for working with grid view in Laravel with Vue.js
+
+A simple package to view the grid on Vue with the Laravel web framework. Easy to configure and easy to operate. The main task of the grid package takes on. You do the rest.
 
 ## Installation
 
