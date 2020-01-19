@@ -26,6 +26,7 @@
                           :id="idTable"
                           :pagination="pagination"
                           :isBusy="isBusy"
+                          :textFromTo="textFromTo + (textTotal.length > 0 ? ' ' + textTotal : '')"
                           @select="getListData($event)"
                           @prev="getListData($event)"
                           @next="getListData($event)">
@@ -35,6 +36,10 @@
                                  :id="idTable"
                                  :pagination="pagination"
                                  :isBusy="isBusy"
+                                 :textFromTo="textFromTo"
+                                 :textTotal="textTotal"
+                                 :textNext="textNext"
+                                 :textPrev="textPrev"
                                  @select="getListData($event)"
                                  @prev="getListData($event)"
                                  @next="getListData($event)">
@@ -120,12 +125,32 @@
       },
       placeholderFilterSearch: {
         type: [String],
-        default: 'Поиск по таблице...',
+        default: 'Search...',
         required: false,
       },
       dataPath: {
         type: [String],
         default: 'data.list',
+        required: false,
+      },
+      textFromTo: {
+        type: [String],
+        default: 'Showing :from to :to',
+        required: false,
+      },
+      textTotal: {
+        type: [String],
+        default: 'of :total',
+        required: false,
+      },
+      textNext: {
+        type: [String],
+        default: 'Next ›',
+        required: false,
+      },
+      textPrev: {
+        type: [String],
+        default: '‹ Prev',
         required: false,
       },
     },

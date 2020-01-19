@@ -1,7 +1,7 @@
 <template>
   <div class="row w-100">
     <div class="col-sm-5">
-      <div class="dataTables_info">Показано с {{ paginationData.from }} по {{ paginationData.to }} из {{ paginationData.total }}</div>
+      <div class="dataTables_info">{{ getTextPagination() }}</div>
     </div>
     <div class="col-sm-7">
       <ul class="pagination b-pagination float-right pull-right">
@@ -56,6 +56,11 @@
         default: 12,
         required: false,
       },
+      textFromTo: {
+        type: [String],
+        default: 'Showing :from to :to of :total',
+        required: false,
+      },
     },
     data() {
       return {
@@ -82,6 +87,12 @@
       }
     },
     methods: {
+      getTextPagination() {
+        return this.textFromTo
+                .replace(':from', this.paginationData.from)
+                .replace(':to', this.paginationData.to)
+                .replace(':total', this.paginationData.total);
+      },
       onCLickPrev() {
         if(this.paginationData.currentPage > 1 && !this.isBusy) {
           this.$emit('prev', this.paginationData.prevPageUrl);
@@ -99,11 +110,11 @@
       },
       fetchListLinksPaginate(currentPage, lastPage) {
         let delta = 2,
-          left = currentPage - delta,
-          right = currentPage + delta + 2,
-          range = [],
-          rangeWithDots = [],
-          l;
+                left = currentPage - delta,
+                right = currentPage + delta + 2,
+                range = [],
+                rangeWithDots = [],
+                l;
 
         for (let i = 1; i <= lastPage; i++) {
           if (i === 1 || i === lastPage || i >= left && i < right) {
@@ -129,10 +140,10 @@
         data = this.fetchPagination(data);
 
         let list = [],
-            firstPage = 1,
-            currentPage = data.currentPage,
-            lastPage = data.lastPage,
-            basePath = data.path;
+                firstPage = 1,
+                currentPage = data.currentPage,
+                lastPage = data.lastPage,
+                basePath = data.path;
 
         if(lastPage > this.maxLinks) {
           let listDataLinks = this.fetchListLinksPaginate((currentPage < 3 ? currentPage : currentPage), lastPage);
@@ -146,7 +157,7 @@
                 label: pageNumber,
               });
             } else if(typeof pageNumber === 'string') {
-                list.push({link: null, isActive: false, label: '...'});
+              list.push({link: null, isActive: false, label: '...'});
             }
           }
         } else {

@@ -1,9 +1,7 @@
 <template>
   <div class="row w-100">
     <div v-if="paginationData.from && paginationData.to" class="col-sm-5">
-      <div class="dataTables_info">
-        Показано с {{ paginationData.from }} по {{ paginationData.to }}<span v-if="paginationData.total"> из {{ paginationData.total }}</span>
-      </div>
+      <div class="dataTables_info">{{ getTextPagination() }}</div>
     </div>
     <div :class="[{ 'col-sm-7' : (paginationData.from && paginationData.to) }, { 'col-sm-12' : (!paginationData.from || !paginationData.to) }]">
       <ul class="pagination b-pagination float-right pull-right">
@@ -11,16 +9,16 @@
             :class="[{ 'disabled' : (paginationData.currentPage <= 1) }, { 'cursor-pointer' : (paginationData.currentPage > 1) }]"
             :disabled="paginationData.currentPage <= 1"
             @click.prevent="onCLickPrev">
-          <a v-if="paginationData.currentPage > 1" href="#" class="page-link">‹ Назад</a>
-          <span v-else class="page-link">‹ Назад</span>
+          <a v-if="paginationData.currentPage > 1" href="#" class="page-link">{{ textPrev }}</a>
+          <span v-else class="page-link">{{ textPrev }}</span>
         </li>
 
         <li class="page-item"
             :class="[{ 'disabled' : !paginationData.hasMore }, { 'cursor-pointer' : paginationData.hasMore }]"
             :disabled="!paginationData.hasMore"
             @click.prevent="onCLickNext">
-          <a v-if="!paginationData.hasMore" href="#" class="page-link">Вперёд ›</a>
-          <span v-else class="page-link">Вперёд ›</span>
+          <a v-if="!paginationData.hasMore" href="#" class="page-link">{{ textNext }}</a>
+          <span v-else class="page-link">{{ textNext }}</span>
         </li>
       </ul>
     </div>
@@ -50,6 +48,26 @@
         default: 12,
         required: false,
       },
+      textFromTo: {
+        type: [String],
+        default: 'Showing :from to :to',
+        required: false,
+      },
+      textTotal: {
+        type: [String],
+        default: 'of :total',
+        required: false,
+      },
+      textNext: {
+        type: [String],
+        default: 'Next ›',
+        required: false,
+      },
+      textPrev: {
+        type: [String],
+        default: '‹ Prev',
+        required: false,
+      },
     },
     data() {
       return {
@@ -76,6 +94,17 @@
       }
     },
     methods: {
+      getTextPagination() {
+        let string = this.textFromTo
+                .replace(':from', this.paginationData.from)
+                .replace(':to', this.paginationData.to);
+
+        if(this.paginationData.total) {
+          string += ' ' + this.textTotal.replace(':total', this.paginationData.total)
+        }
+
+        return string;
+      },
       onCLickPrev() {
         if(this.paginationData.currentPage > 1 && !this.isBusy) {
           this.$emit('prev', this.paginationData.prevPageUrl);
