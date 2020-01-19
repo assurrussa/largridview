@@ -1,6 +1,6 @@
 {
   "name": "largridview",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple package for the view of the grid on Vue. It is easily customizable and easy to work. The main task of the grid package takes over. You do the rest.",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/assurrussa/largridview.git"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8"
   },
   "keywords": [
     "Vue",
