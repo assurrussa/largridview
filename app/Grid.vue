@@ -51,6 +51,7 @@
   import debounce from "lodash/debounce";
 
   export default {
+    name: 'LarGridView',
     props: {
       url: {
         type: [String],
