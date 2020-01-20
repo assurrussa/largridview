@@ -36,10 +36,12 @@ A simple package to view the grid on Vue with the Laravel web framework. Easy to
 
 | Name | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
-| `url` | String | Yes | `'/'` | URL to get the required data. |
-| `fields` | Array | Yes | `[]` | Fields to display. Example: `[{width: '10%', name: 'id', label: '', isSort: true}, {width: null, name: 'action', label: 'Действия', isAction: true}]`. |
+| `url` | String | `Yes` | `'/'` | URL to get the required data. If the line is empty, then data will not be sent. |
+| `fields` | Array | `Yes` | `[]` | Fields to display. Example: `[{width: '10%', name: 'id', label: '', isSort: true}, {width: null, name: 'action', label: 'Действия', isAction: true}]`. |
 | `dataPath` | String | No | `data.list` | The path to receiving data from a pagination request response. |
+| `isSend` | Boolean | No | `true` | Enable automatic data sending. |
 | `isBusy` | Boolean | No | `false` | Loading data into a table. |
+| `isLoadingOn` | Boolean | No | `true` | Enable basic data loading. |
 | `isSearch` | Boolean | No | `false` | Enable table search. |
 | `isPaginateOn` | Boolean | No | `true` | Enable pagination. |
 | `isPaginateSimple` | Boolean | No | `false` | Simple pagination. |
@@ -48,10 +50,24 @@ A simple package to view the grid on Vue with the Laravel web framework. Easy to
 | `perPage` | Array | No | `[20, 50, 100, 200]` | The number of rows for the table. |
 | `perPageDefault` | Number | No | `20` | Default row count for table. |
 | `idTable` | String | No | `tableID` | Table id for better control. |
-| `classTable` | String | No | `jambo_table bulk_action table-striped table-bordered` | Class for the table itself. |
-| `classBlock` | String | No | `dataTables_wrapper form-inline dt-bootstrap` | Class for the block itself. |
+| `classTable` | String | No | `` | Class for the table itself. |
+| `classBlock` | String | No | `` | Class for the block itself. |
 | `placeholderFilterSearch` | String | No | `Search...` | Placeholder for search input. |
 | `textFromTo` | String | No | `Showing :from to :to` |  |
 | `textTotal` | String | No | `of :total` |  |
 | `textNext` | String | No | `Next ›` |  |
 | `textPrev` | String | No | `‹ Prev` |  |
+
+
+## Events
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `loading` | Boolean | Data load status change event. |
+| `response` | Object | Event when receiving data from the server. |
+| `filter:select` | Number | The event of selecting the number of lines displayed on the page. |
+| `filter:sort` | Object | Column sort selection event. |
+| `filter:search` | String | The event of entering text into the search string. |
+| `page:select` | String | The event of clicking on the pagination button on. |
+| `page:next` | String | Pagination forward button click event. |
+| `page:prev` | String | Pagination back button click event. |

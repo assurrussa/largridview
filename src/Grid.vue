@@ -15,7 +15,7 @@
       </template>
     </datatable-filter>
 
-    <datatable :classTable="classTable" :fields="columns" :sortKey="tableData.column" :id="idTable" @sort="onSortBy" :isBusy="isBusy">
+    <datatable :classTable="classTable" :fields="columns" :sortKey="tableData.column" :id="idTable" @sort="onSortBy" :isBusy="isBusy || isLoading">
       <template v-slot:filter>
         <slot name="filtertable"></slot>
       </template>
@@ -25,24 +25,23 @@
     <datatable-pagination v-if="isPaginateOn && ! isPaginateSimple"
                           :id="idTable"
                           :pagination="pagination"
-                          :isBusy="isBusy"
+                          :isBusy="isBusy || isLoading"
                           :textFromTo="textFromTo + (textTotal.length > 0 ? ' ' + textTotal : '')"
-                          @select="getListData($event)"
-                          @prev="getListData($event)"
-                          @next="getListData($event)">
+                          @select="onClickPageSelect"
+                          @prev="onClickPagePrev"
+                          @next="onClickPageNext">
     </datatable-pagination>
 
     <datatable-pagination-simple v-if="isPaginateOn && isPaginateSimple"
                                  :id="idTable"
                                  :pagination="pagination"
-                                 :isBusy="isBusy"
+                                 :isBusy="isBusy || isLoading"
                                  :textFromTo="textFromTo"
                                  :textTotal="textTotal"
                                  :textNext="textNext"
                                  :textPrev="textPrev"
-                                 @select="getListData($event)"
-                                 @prev="getListData($event)"
-                                 @next="getListData($event)">
+                                 @prev="onClickPagePrev"
+                                 @next="onClickPageNext">
     </datatable-pagination-simple>
 
   </div>
@@ -68,9 +67,19 @@
         default: () => [],
         required: true,
       },
+      isSend: {
+        type: [Boolean],
+        default: true,
+        required: false,
+      },
       isBusy: {
         type: [Boolean],
         default: false,
+        required: false,
+      },
+      isLoadingOn: {
+        type: [Boolean],
+        default: true,
         required: false,
       },
       isSearch: {
@@ -115,12 +124,12 @@
       },
       classTable: {
         type: [String],
-        default: 'jambo_table bulk_action table-striped table-bordered',
+        default: '',
         required: false,
       },
       classBlock: {
         type: [String],
-        default: 'dataTables_wrapper form-inline dt-bootstrap',
+        default: '',
         required: false,
       },
       placeholderFilterSearch: {
@@ -162,6 +171,7 @@
     },
     data() {
       return {
+        isLoading: false,
         list: [],
         columns: [],
         tableData: {
@@ -183,26 +193,47 @@
     watch: {
       sortKey(value) {
         this.tableData.column = value;
-      }
+      },
     },
     methods: {
       onFilterCount(event) {
         this.tableData.length = parseInt(event);
+        this.$emit('filter:select', parseInt(event));
         this.getListData(this.url);
       },
       onFilterSearch(event) {
         this.tableData.search = event;
+        this.$emit('filter:search', event);
         this.getListData(this.url);
       },
       onSortBy(event) {
         this.tableData.column = event.column;
         this.tableData.by = event.dir;
+        this.$emit('filter:sort', event);
         this.getListData(this.url);
       },
+      onClickPageSelect(event) {
+        this.$emit('page:select', event);
+        this.getListData(event);
+      },
+      onClickPageNext(event) {
+        this.$emit('page:next', event);
+        this.getListData(event);
+      },
+      onClickPagePrev(event) {
+        this.$emit('page:prev', event);
+        this.getListData(event);
+      },
       getListData: debounce(async function(url) {
+        if(! this.isSend) {
+          return;
+        }
+
         if(url === '' || url === null || url === undefined) {
           return;
         }
+
+        this.setLoadingOn();
         let objectUrlQuery = this.getObjectFromUrl(url);
 
         if(objectUrlQuery.page && this.tableData.page) {
@@ -219,6 +250,7 @@
         }
 
         this.$emit('response', data);
+        this.setLoadingOff();
       }, 300),
       getIndex(array, key, value) {
         return array.findIndex(i => i[key] === value)
@@ -322,6 +354,20 @@
         }
 
         return true;
+      },
+      setLoadingOn() {
+        if(! this.isLoadingOn) {
+          return;
+        }
+        this.isLoading = true;
+        this.$emit('loading', this.isLoading);
+      },
+      setLoadingOff() {
+        if(! this.isLoadingOn) {
+          return;
+        }
+        this.isLoading = false;
+        this.$emit('loading', this.isLoading);
       },
     },
   }

@@ -1,4 +1,4 @@
-import component from './app/Grid.vue';
+import component from './src/Grid.vue';
 
 export function install(Vue) {
   if (install.installed) return;
