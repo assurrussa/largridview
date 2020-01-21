@@ -39,10 +39,12 @@ A simple package to view the grid on Vue with the Laravel web framework. Easy to
 | `url` | String | `Yes` | `'/'` | URL to get the required data. If the line is empty, then data will not be sent. |
 | `fields` | Array | `Yes` | `[]` | Fields to display. Example: `[{width: '10%', name: 'id', label: '', isSort: true}, {width: null, name: 'action', label: 'Действия', isAction: true}]`. |
 | `dataPath` | String | No | `data.list` | The path to receiving data from a pagination request response. |
+| `data` | Object | No | `{}` | It is necessary in cases when you need to control some data for sending. |
 | `isSend` | Boolean | No | `true` | Enable automatic data sending. |
 | `isBusy` | Boolean | No | `false` | Loading data into a table. |
 | `isLoadingOn` | Boolean | No | `true` | Enable basic data loading. |
 | `isSearch` | Boolean | No | `false` | Enable table search. |
+| `isPerPageOn` | Boolean | No | `true` | Enable selection of the number of table rows per page. |
 | `isPaginateOn` | Boolean | No | `true` | Enable pagination. |
 | `isPaginateSimple` | Boolean | No | `false` | Simple pagination. |
 | `isPaginateAuto` | Boolean | No | `true` | Enable automatic pagination detection - simple pagination or not. |

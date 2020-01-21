@@ -5,7 +5,7 @@
     </div>
     <div class="col-sm-12 m-0 p-0">
       <div class="pull-left float-left">
-        <label>
+        <label v-if="isPerPageOn">
           <select v-model="model" @change="$emit('select', parseInt(model))" class="form-control input-sm">
             <option v-for="(value, index) in perPage" :key="id + index + value" :value="value">{{ value }}</option>
           </select>
@@ -39,6 +39,11 @@
       selectSearch: {
         type: [String],
         default: null,
+        required: false,
+      },
+      isPerPageOn: {
+        type: [ Boolean],
+        default: true,
         required: false,
       },
       isSearch: {

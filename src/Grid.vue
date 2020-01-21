@@ -8,6 +8,7 @@
                       :placeholder="placeholderFilterSearch"
                       @select="onFilterCount"
                       @search="onFilterSearch"
+                      :isPerPageOn="isPerPageOn"
                       :isSearch="isSearch">
       <slot name="filter"></slot>
       <template v-slot:filter>
@@ -87,6 +88,11 @@
         default: false,
         required: false,
       },
+      isPerPageOn: {
+        type: [Boolean],
+        default: true,
+        required: false,
+      },
       isPaginateOn: {
         type: [Boolean],
         default: true,
@@ -105,6 +111,11 @@
       sortKey: {
         type: [String],
         default: null,
+        required: false,
+      },
+      data: {
+        type: [Object],
+        default: () => {},
         required: false,
       },
       perPage: {
@@ -235,12 +246,12 @@
 
         this.setLoadingOn();
         let objectUrlQuery = this.getObjectFromUrl(url);
-
         if(objectUrlQuery.page && this.tableData.page) {
           delete this.tableData.page;
         }
 
-        const { data } = await this.$axios.get(url, {params: this.tableData});
+        let tableDataList = Object.assign(this.tableData, this.data);
+        const { data } = await this.$axios.get(url, {params: tableDataList});
 
         if(this.isPaginateOn) {
           let dataValue = this.getDataValue(data);
