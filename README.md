@@ -59,8 +59,8 @@ A simple package to view the grid on Vue with the Laravel web framework. Easy to
 | `textTotal` | String | No | `of :total` |  |
 | `textNext` | String | No | `Next ›` |  |
 | `textPrev` | String | No | `‹ Prev` |  |
-| `paginateDeltaLeft` | Number | No | `The number of pages to the left of the current page` |  |
-| `paginateDeltaRight` | Number | No | `The number of pages to the right of the current page` |  |
+| `paginateDeltaLeft` | Number | No | `2` | The number of pages to the left of the current page. |
+| `paginateDeltaRight` | Number | No | `2` | The number of pages to the right of the current page. |
 
 
 ## Events
