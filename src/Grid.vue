@@ -28,6 +28,8 @@
                           :pagination="pagination"
                           :isBusy="isBusy || isLoading"
                           :textFromTo="textFromTo + (textTotal.length > 0 ? ' ' + textTotal : '')"
+                          :addDeltaLeft="paginateDeltaLeft"
+                          :addDeltaRight="paginateDeltaRight"
                           @select="onClickPageSelect"
                           @prev="onClickPagePrev"
                           @next="onClickPageNext">
@@ -49,10 +51,10 @@
 </template>
 
 <script>
-  import Datatable from "./Datatable";
-  import DatatableFilter from "./DatatableFilter";
-  import DatatablePagination from "./DatatablePagination";
-  import DatatablePaginationSimple from "./DatatablePaginationSimple";
+  import Datatable from "./Datatable.vue";
+  import DatatableFilter from "./DatatableFilter.vue";
+  import DatatablePagination from "./DatatablePagination.vue";
+  import DatatablePaginationSimple from "./DatatablePaginationSimple.vue";
   import debounce from "lodash/debounce";
 
   export default {
@@ -171,6 +173,16 @@
       textPrev: {
         type: [String],
         default: '‹ Prev',
+        required: false,
+      },
+      paginateDeltaLeft: {
+        type: [Number],
+        default: 2,
+        required: false,
+      },
+      paginateDeltaRight: {
+        type: [Number],
+        default: 2,
         required: false,
       },
     },

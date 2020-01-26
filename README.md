@@ -19,7 +19,7 @@ A simple package to view the grid on Vue with the Laravel web framework. Easy to
 ...
 
   <LarGridView :url="'api/all'"
-        :fields="[{width: '10%', name: 'id', label: '', isSort: true}, {width: null, name: 'action', label: 'Действия', isAction: true}]"
+        :fields="[{width: '10%', name: 'id', label: '', isSort: true}, {width: null, name: 'action', label: 'Actions', isAction: true}]"
         @response="onResponse"
         :isBusy="loadingSendingStatus"
         sort-key='id'>
@@ -37,7 +37,7 @@ A simple package to view the grid on Vue with the Laravel web framework. Easy to
 | Name | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
 | `url` | String | `Yes` | `'/'` | URL to get the required data. If the line is empty, then data will not be sent. |
-| `fields` | Array | `Yes` | `[]` | Fields to display. Example: `[{width: '10%', name: 'id', label: '', isSort: true}, {width: null, name: 'action', label: 'Действия', isAction: true}]`. |
+| `fields` | Array | `Yes` | `[]` | Fields to display. Example: `[{width: '10%', name: 'id', label: '', isSort: true}, {width: null, name: 'action', label: 'Actions', isAction: true}]`. |
 | `dataPath` | String | No | `data.list` | The path to receiving data from a pagination request response. |
 | `data` | Object | No | `{}` | It is necessary in cases when you need to control some data for sending. |
 | `isSend` | Boolean | No | `true` | Enable automatic data sending. |
@@ -59,6 +59,8 @@ A simple package to view the grid on Vue with the Laravel web framework. Easy to
 | `textTotal` | String | No | `of :total` |  |
 | `textNext` | String | No | `Next ›` |  |
 | `textPrev` | String | No | `‹ Prev` |  |
+| `paginateDeltaLeft` | Number | No | `The number of pages to the left of the current page` |  |
+| `paginateDeltaRight` | Number | No | `The number of pages to the right of the current page` |  |
 
 
 ## Events

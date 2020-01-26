@@ -61,6 +61,16 @@
         default: 'Showing :from to :to of :total',
         required: false,
       },
+      addDeltaLeft: {
+        type: [Number],
+        default: 2,
+        required: false,
+      },
+      addDeltaRight: {
+        type: [Number],
+        default: 2,
+        required: false,
+      },
     },
     data() {
       return {
@@ -109,15 +119,14 @@
         }
       },
       fetchListLinksPaginate(currentPage, lastPage) {
-        let delta = 2,
-                left = currentPage - delta,
-                right = currentPage + delta + 2,
-                range = [],
-                rangeWithDots = [],
-                l;
+        let left = currentPage - (this.addDeltaLeft < 1 ? 1 : this.addDeltaLeft),
+            right = currentPage + (this.addDeltaRight < 1 ? 1 : this.addDeltaRight),
+            range = [],
+            rangeWithDots = [],
+            l;
 
         for (let i = 1; i <= lastPage; i++) {
-          if (i === 1 || i === lastPage || i >= left && i < right) {
+          if ((i === 1) || (i === lastPage) || (i >= left && i <= right)) {
             range.push(i);
           }
         }
