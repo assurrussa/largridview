@@ -1,6 +1,6 @@
 <template>
-  <table class="table dataTable" :class="classTable">
-    <thead :style="blockGetStyle()">
+  <table :style="blockGetStyle()" class="table dataTable" :class="classTable">
+    <thead>
     <tr class="headings">
       <th class="column-title"
           v-for="(field, index) in sortOrdersFields"
@@ -14,13 +14,15 @@
     </tr>
     </thead>
     <tbody>
-    <slot name="filter" :style="blockGetStyle()"></slot>
-    <tr v-if="isBusy">
-      <td :colspan="fields.length" class="loader-block">
-        <div class="loader-ellipsis"><div></div><div></div><div></div><div></div></div>
+    <slot name="filter"></slot>
+    <slot></slot>
+    <tr v-if="isBusy" class="loader-block">
+      <td :colspan="fields.length" style="padding: 0">
+        <div class="loader-block-inner">
+          <div class="loader-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
       </td>
     </tr>
-    <slot v-if="! isBusy"></slot>
     </tbody>
   </table>
 </template>
@@ -135,10 +137,7 @@
 
 <style scoped>
   .loader-block {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    text-align: center;
+    border: none;
   }
   .loader-ellipsis {
     display: inline-block;

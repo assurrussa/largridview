@@ -1,7 +1,7 @@
 {
   "name": "largridview",
-  "version": "1.0.10",
-  "description": "A simple package to view the grid on Vue with the Laravel web framework. Easy to configure and easy to operate. The main task of the grid package takes on. You do the rest.",
+  "version": "1.0.11",
+  "description": "A simple package to view the data table on Vue with the Laravel web framework. Easy to configure and easy to operate. The main task of the grid package takes on. You do the rest.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +18,8 @@
     "Vue.js",
     "Laravel",
     "Grid",
+    "Datatable",
+    "Table",
     "gridview",
     "view",
     "js"
