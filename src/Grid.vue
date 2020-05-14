@@ -347,25 +347,41 @@
         this.tableData.length = value;
       },
       setTableQueryParams() {
-        for(let key in this.$route.query) {
+        let queryUrl = this.getQueryUrl();
+        for(let key in queryUrl) {
           if(this.tableData[key] !== undefined) {
-            this.tableData[key] = this.$route.query[key];
+            this.tableData[key] = queryUrl[key];
             if(key === 'length') {
-              this.setTableLength(this.$route.query[key]);
+              this.setTableLength(queryUrl[key]);
             } else if(key === 'search' && !this.isSearch) {
               this.tableData[key] = '';
             } else if(key === 'column') {
-              this.tableData[key] = this.$route.query[key];
-              let indexField = this.getIndex(this.fields, 'name', this.$route.query[key]);
+              this.tableData[key] = queryUrl[key];
+              let indexField = this.getIndex(this.fields, 'name', queryUrl[key]);
               if(indexField > -1) {
-                this.fields[indexField].sortValue = (this.$route.query.by === 'asc') ? 1 : 0;
+                this.fields[indexField].sortValue = (queryUrl.by === 'asc') ? 1 : 0;
               }
             }
           }
         }
-        if(this.$route.query['page'] && parseInt(this.$route.query['page']) > 1) {
-          this.tableData['page'] = parseInt(this.$route.query['page']);
+        if(queryUrl['page'] && parseInt(queryUrl['page']) > 1) {
+          this.tableData['page'] = parseInt(queryUrl['page']);
         }
+      },
+      getQueryUrl() {
+        if(this.$route && this.$route.query) {
+          return this.$route.query;
+        }
+
+        let items = [];
+        if(window && window.location) {
+          let params = new URLSearchParams(window.location.search);
+          params.forEach((value, key) => {
+            items[key] = value;
+          });
+        }
+
+        return items;
       },
       setAutoPaginate(value) {
         if(this.isPaginateOn && this.isPaginateAuto === true) {
