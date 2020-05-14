@@ -1,6 +1,6 @@
 {
   "name": "largridview",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "A simple package to view the data table on Vue with the Laravel web framework. Easy to configure and easy to operate. The main task of the grid package takes on. You do the rest.",
   "main": "index.js",
   "scripts": {
